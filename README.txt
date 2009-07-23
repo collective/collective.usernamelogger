@@ -40,5 +40,5 @@ typically at `<site-root>/var/log/instance-Z2.log`.
 Contact
 -------
 
-| Andreas Zeidler <``az at zitc.de``>
-| **ZITC**, http://zitc.de/
+| Andreas Zeidler <az@zitc.de> 
+| zitc, http://zitc.de/

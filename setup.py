@@ -7,7 +7,7 @@ history = open('CHANGES.txt').read()
 setup(name = 'collective.usernamelogger',
       version = version,
       description = 'Log user names when using cookie authentication in Zope/Plone.',
-      long_description = readme[readme.find('\n\n'):] + '\n' + history,
+      long_description = readme[readme.find('\n\n'):readme.find('Contact')] + history,
       classifiers = [
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',

@@ -1,0 +1,57 @@
+A browser test demonstrating the logging of user names in Zope/Plone.
+
+First we need to tell the test setup that we want `ZServer` to be started
+or else we won't get any logging info at all:
+
+  >>> from StringIO import StringIO
+  >>> from Testing.ZopeTestCase.utils import startZServer
+  >>> log = StringIO()
+  >>> host, port = startZServer(log=log)
+  >>> base = 'http://%s:%s/%s' % (host, port, portal.getId())
+
+Now let's access the site anonymously:
+
+  >>> from zope.testbrowser.browser import Browser
+  >>> browser = Browser()
+  >>> browser.open(base)
+
+The access should have been logged:
+
+  >>> log.getvalue().splitlines()[-1]
+  '127.0.0.1 - Anonymous ...'
+
+Let's try that again after logging in:
+
+  >>> from Products.PloneTestCase import PloneTestCase as ptc
+  >>> browser.getLink('Log in').click()
+  >>> browser.getControl('Login').value = ptc.default_user
+  >>> browser.getControl('Password').value = ptc.default_password
+  >>> browser.getControl('Log in').click()
+  >>> browser.contents
+  '...You are now logged in...'
+
+The access should have been logged as well, this time with a user name:
+
+  >>> log.getvalue().splitlines()[-1]
+  '127.0.0.1 - test_user_1_ ...'
+
+Lastly we try once more as a user defined on the root level of the Zope
+application, since the generated cookie is different here.  First we need to
+log out, though:
+
+  >>> browser.getLink('Log out').click()
+  >>> browser.contents
+  '...You are now logged out...'
+  >>> browser.getLink('Home').click()
+
+  >>> browser.getLink('Log in').click()
+  >>> browser.getControl('Login').value = ptc.portal_owner
+  >>> browser.getControl('Password').value = ptc.default_password
+  >>> browser.getControl('Log in').click()
+  >>> browser.contents
+  '...You are now logged in...'
+
+This access should also have been logged:
+
+  >>> log.getvalue().splitlines()[-1]
+  '127.0.0.1 - portal_owner ...'

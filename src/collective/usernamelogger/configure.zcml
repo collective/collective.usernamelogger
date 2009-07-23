@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="collective.usernamelogger">
+
+  <include package="collective.monkeypatcher" file="meta.zcml" />
+
+  <monkey:patch
+     class="ZServer.medusa.http_server.http_request"
+     original="log"
+     replacement=".log"
+     docstringWarning="false" />
+
+</configure>

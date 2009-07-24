@@ -4,9 +4,8 @@ import time
 import Cookie
 
 
-def username(self, name):
+def username(cookie, name=None):
     """ try to extract username from PAS cookie """
-    cookie = self.get_header('Cookie')
     if cookie is not None:
         cookies = Cookie.SimpleCookie()
         cookies.load(cookie)
@@ -42,7 +41,7 @@ def log (self, bytes):
                 name = t[0]
 
     # support for cookies and cookie authentication
-    name = username(self, name)
+    name = username(self.get_header('Cookie'), name)
 
     self.channel.server.logger.log (
         self.channel.addr[0],

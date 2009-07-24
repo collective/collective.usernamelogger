@@ -1,4 +1,4 @@
-from unittest import TestSuite
+from unittest import TestCase, defaultTestLoader
 from zope.testing import doctest
 from Testing import ZopeTestCase as ztc
 from Products.Five import zcml
@@ -27,15 +27,23 @@ class Layer(BasePTCLayer):
 layer = Layer(bases=[ptc_layer])
 
 
-class TestCase(ptc.FunctionalTestCase):
+class FunctionalTestCase(ptc.FunctionalTestCase):
     """ base class for functional tests """
 
     layer = layer
 
 
+class UsernameTests(TestCase):
+
+    def testFoo(self):
+        pass
+
+
 def test_suite():
-    return TestSuite([
+    suite = defaultTestLoader.loadTestsFromName(__name__)
+    suite.addTest(
         ztc.FunctionalDocFileSuite(
            'browser.txt', package='collective.usernamelogger',
-           test_class=TestCase, optionflags=optionflags),
-    ])
+           test_class=FunctionalTestCase, optionflags=optionflags)
+    )
+    return suite

@@ -43,6 +43,9 @@ class UsernameTests(TestCase):
     def testSessionCookieWithColon(self):
         self.assertEquals(self.username('xyz:12345 john'), 'john')
 
+    def testSessionCookieWithSpaces(self):
+        self.assertEquals(self.username('xyz 12345 foo john'), 'john')
+
 
 def test_suite():
     suite = defaultTestLoader.loadTestsFromName(__name__)

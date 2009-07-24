@@ -12,7 +12,7 @@ def username(cookie, name=None):
         if '__ac' in cookies:
             ac = base64.decodestring(cookies['__ac'].value + '=====')
             if ' ' in ac:
-                token, name = ac.split(' ', 1)
+                token, name = ac.rsplit(' ', 1)
             elif ':' in ac:
                 user, pwd = ac.split(':', 1)
                 name = user.decode('hex')

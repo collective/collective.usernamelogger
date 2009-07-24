@@ -4,6 +4,9 @@ Changelog
 1.0a2 - Unreleased
 ------------------
 
+* Split session cookie from the right as the token can also contain spaces.
+  [witsch]
+
 * Handle session cookies first as they can contain a colon, thereby breaking
   the hexadecimal decode.
   [witsch]

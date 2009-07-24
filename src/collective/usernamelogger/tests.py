@@ -35,8 +35,13 @@ class FunctionalTestCase(ptc.FunctionalTestCase):
 
 class UsernameTests(TestCase):
 
-    def testFoo(self):
-        pass
+    def username(self, value):
+        from collective.usernamelogger import username
+        from base64 import encodestring
+        return username('__ac=%s' % encodestring(value))
+
+    def testSessionCookieWithColon(self):
+        self.assertEquals(self.username('xyz:12345 john'), 'john')
 
 
 def test_suite():

@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0a2 - Unreleased
+1.0a2 - 2009/07/24
 ------------------
 
 * Split session cookie from the right as the token can also contain spaces.

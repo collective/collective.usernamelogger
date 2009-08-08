@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.0a3'
+version = '1.0'
 readme = open('README.txt').read()
 history = open('CHANGES.txt').read()
 

@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.0a3 - Unreleased
-------------------
+1.0 - 2009/08/08
+----------------
+
+* Re-release unchanged 1.0a2 as final.
+  [witsch]
 
 
 1.0a2 - 2009/07/24

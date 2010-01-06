@@ -1,6 +1,14 @@
 Changelog
 =========
 
+
+1.1 - unreleased
+----------------
+
+* unquote the cookie value before passing the value to base64.decodestring.
+  [vincentfretin]
+
+
 1.0 - 2009/08/08
 ----------------
 

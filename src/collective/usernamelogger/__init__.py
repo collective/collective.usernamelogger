@@ -1,6 +1,7 @@
 import string
 import base64
 import time
+from urllib import unquote
 import Cookie
 
 
@@ -10,7 +11,7 @@ def username(cookie, name=None):
         cookies = Cookie.SimpleCookie()
         cookies.load(cookie)
         if '__ac' in cookies:
-            ac = base64.decodestring(cookies['__ac'].value + '=====')
+            ac = base64.decodestring(unquote(cookies['__ac'].value) + '=====')
             if ' ' in ac:
                 token, name = ac.rsplit(' ', 1)
             elif ':' in ac:

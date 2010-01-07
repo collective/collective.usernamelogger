@@ -1,17 +1,16 @@
-import string
-import base64
-import time
+from base64 import decodestring, binascii
+from time import time
 from urllib import unquote
-import Cookie
+from Cookie import SimpleCookie
 
 
 def username(cookie, name=None):
     """ try to extract username from PAS cookie """
     if cookie is not None:
-        cookies = Cookie.SimpleCookie()
+        cookies = SimpleCookie()
         cookies.load(cookie)
         if '__ac' in cookies:
-            ac = base64.decodestring(unquote(cookies['__ac'].value) + '=====')
+            ac = decodestring(unquote(cookies['__ac'].value) + '=====')
             if ' ' in ac:
                 token, name = ac.rsplit(' ', 1)
             elif ':' in ac:
@@ -32,10 +31,10 @@ def log (self, bytes):
     auth=self.get_header('Authorization')
     name='Anonymous'
     if auth is not None:
-        if string.lower(auth[:6]) == 'basic ':
-            try: decoded=base64.decodestring(auth[6:])
-            except base64.binascii.Error: decoded=''
-            t = string.split(decoded, ':', 1)
+        if auth[:6].lower() == 'basic ':
+            try: decoded = decodestring(auth[6:])
+            except binascii.Error: decoded=''
+            t = decoded.split(':', 1)
             if len(t) < 2:
                 name = 'Unknown (bad auth string)'
             else:
@@ -48,7 +47,7 @@ def log (self, bytes):
         self.channel.addr[0],
         '- %s [%s] "%s" %d %d "%s" "%s"\n' % (
             name,
-            self.log_date_string (time.time()),
+            self.log_date_string (time()),
             self.request,
             self.reply_code,
             bytes,

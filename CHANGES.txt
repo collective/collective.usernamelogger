@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-1.1 - unreleased
+1.1 - Unreleased
 ----------------
 
-* unquote the cookie value before passing the value to base64.decodestring.
+* Unquote the cookie value before attempting to decode it.
   [vincentfretin]
 
 

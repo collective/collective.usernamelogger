@@ -1,8 +1,7 @@
 Changelog
 =========
 
-
-1.1 - Unreleased
+1.1 - 2010/01/07
 ----------------
 
 * Unquote the cookie value before attempting to decode it.

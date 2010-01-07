@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.0'
+version = '1.1'
 readme = open('README.txt').read()
 history = open('CHANGES.txt').read()
 
@@ -9,7 +9,7 @@ setup(name = 'collective.usernamelogger',
       description = 'Log user names when using cookie authentication in Zope/Plone.',
       long_description = readme[readme.find('\n\n'):readme.find('Contact')] + history,
       classifiers = [
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Plone',
         'Framework :: Zope2',

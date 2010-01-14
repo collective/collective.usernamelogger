@@ -16,7 +16,7 @@ and `plone.session`_.
 Installation
 ------------
 
-The easiest way to user this package is when working with installations
+The easiest way to use this package is when working with installations
 based on `zc.buildout`_.  Here you can simply add the package to your "eggs"
 and "zcml" options, run buildout and restart your `Zope`_/`Plone`_ instance.
 

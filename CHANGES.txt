@@ -4,6 +4,9 @@ Changelog
 1.2 - Unreleased
 ----------------
 
+- Add `z3c.autoinclude` entry point for automatic ZCML loading in Plone 3.3+.
+  [witsch]
+
 
 1.1 - 2010/01/07
 ----------------

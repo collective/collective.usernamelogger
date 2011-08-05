@@ -11,8 +11,13 @@ def username(cookie, name=None):
         cookies.load(cookie)
         if '__ac' in cookies:
             ac = decodestring(unquote(cookies['__ac'].value) + '=====')
-            if ' ' in ac:
-                token, name = ac.rsplit(' ', 1)
+            # plone.session 3.x (Plone 4.x)
+            if '!' in ac[40:]:
+                name, user_data = ac[40:].split('!', 1)
+            # plone.session 2.x (Plone 3.x)
+            elif ' ' in ac[20:21]:
+                name = ac[21:]
+            # PluggableAuthService.CookieAuthHelper
             elif ':' in ac:
                 user, pwd = ac.split(':', 1)
                 # PluggableAuthService >= 1.5

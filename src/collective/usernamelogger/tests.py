@@ -47,7 +47,13 @@ class UsernameTests(TestCase):
         self.assertEquals(self.username('6a6f686e:736563726574'), 'john')
 
     def testSessionCookieWithSpaces(self):
-        self.assertEquals(self.username('xyz 12345 foo john'), 'john')
+        self.assertEquals(self.username('\xd2\xe7\x9bh\x81\xd6=U\xd1\x8f\x07'
+            '\xa1\xb2*JdC\x14\x8a\xab john'), 'john')
+
+    def testSessionCookieWithExclamationMark(self):
+        self.assertEquals(self.username('\xa35\xeeE\xad\x93\xd1\x0b\xff\x0f'
+            '\xf1\x1b\xb1\xb1c7\x85\xf1U\x00\x1f"\'Ci\x16\xd6$nF894e3aa223john'
+            '!'), 'john')
 
 
 def test_suite():

@@ -41,7 +41,10 @@ class UsernameTests(TestCase):
         return username('__ac=%s' % encodestring(value))
 
     def testSessionCookieWithColon(self):
-        self.assertEquals(self.username('xyz:12345 john'), 'john')
+        self.assertEquals(self.username('john:secret'), 'john')
+
+    def testSessionCookieWithColonInHex(self):
+        self.assertEquals(self.username('6a6f686e:736563726574'), 'john')
 
     def testSessionCookieWithSpaces(self):
         self.assertEquals(self.username('xyz 12345 foo john'), 'john')

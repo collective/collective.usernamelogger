@@ -15,7 +15,12 @@ def username(cookie, name=None):
                 token, name = ac.rsplit(' ', 1)
             elif ':' in ac:
                 user, pwd = ac.split(':', 1)
-                name = user.decode('hex')
+                # PluggableAuthService >= 1.5
+                try:
+                    name = user.decode('hex')
+                # PluggableAuthService < 1.5
+                except TypeError:
+                    name = user
     return name
 
 

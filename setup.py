@@ -34,8 +34,10 @@ setup(name = 'collective.usernamelogger',
       install_requires = [
           'setuptools',
           'collective.monkeypatcher',
-          'collective.testcaselayer',
       ],
+      extras_require = { 'test': [
+          'collective.testcaselayer',
+      ]},
       entry_points = '''
         [z3c.autoinclude.plugin]
         target = plone

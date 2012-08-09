@@ -4,6 +4,8 @@ Changelog
 1.3 - Unreleased
 ----------------
 
+* Added getting real client ip
+  [kroman0]
 
 1.2 - 2011/08/16
 ----------------

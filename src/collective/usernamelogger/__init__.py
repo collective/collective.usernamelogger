@@ -2,6 +2,7 @@ from base64 import decodestring, binascii
 from time import time
 from urllib import unquote
 from Cookie import SimpleCookie
+from ZPublisher import HTTPRequest
 
 
 def username(cookie, name=None):
@@ -38,6 +39,16 @@ def log (self, bytes):
     referer=self.get_header('referer')
     if not referer: referer=''
 
+    ip_addr = self.channel.addr[0]
+    forwarded_for = self.get_header('X-Forwarded-For')
+    if forwarded_for and ip_addr in HTTPRequest.trusted_proxies:
+        forwarded_for = [e.strip() for e in forwarded_for.split(',')]
+        forwarded_for.reverse()
+        for entry in forwarded_for:
+            if entry not in HTTPRequest.trusted_proxies:
+                ip_addr = entry
+                break
+
     auth=self.get_header('Authorization')
     name='Anonymous'
     if auth is not None:
@@ -54,7 +65,7 @@ def log (self, bytes):
     name = username(self.get_header('Cookie'), name)
 
     self.channel.server.logger.log (
-        self.channel.addr[0],
+        ip_addr,
         '- %s [%s] "%s" %d %d "%s" "%s"\n' % (
             name,
             self.log_date_string (time()),

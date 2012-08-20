@@ -11,7 +11,10 @@ def username(cookie, name=None):
         cookies = SimpleCookie()
         cookies.load(cookie)
         if '__ac' in cookies:
-            ac = decodestring(unquote(cookies['__ac'].value) + '=====')
+            try:
+            	ac = decodestring(unquote(cookies['__ac'].value) + '=====')
+            except binascii.Error:
+                return name
             # plone.session 3.x (Plone 4.x)
             if '!' in ac[40:]:
                 name, user_data = ac[40:].split('!', 1)

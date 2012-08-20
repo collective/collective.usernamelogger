@@ -4,6 +4,9 @@ Changelog
 1.3 - Unreleased
 ----------------
 
+* skip binascii.Error
+  [kroman0]
+
 * Added getting real client ip
   [kroman0]
 

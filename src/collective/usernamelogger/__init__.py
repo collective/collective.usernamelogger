@@ -5,16 +5,34 @@ from Cookie import SimpleCookie
 from ZPublisher import HTTPRequest
 
 
+def repeatedly_unquote(cookie):
+    """Keep unquoting the cookie value until it doesn't change any more.
+    We do this to deal with doubly-quoted base64 strings that otherwise would
+    have incorrect padding.
+    """
+    done = False
+    unquoted_cookie = cookie
+    while not done:
+        if unquote(unquoted_cookie) == unquoted_cookie:
+            done = True
+        unquoted_cookie = unquote(unquoted_cookie)
+    return unquoted_cookie
+
+
 def username(cookie, name=None):
     """ try to extract username from PAS cookie """
     if cookie is not None:
         cookies = SimpleCookie()
         cookies.load(cookie)
         if '__ac' in cookies:
+            # Deal with doubly quoted cookies
+            ac_cookie = repeatedly_unquote(cookies['__ac'].value)
+
             try:
-            	ac = decodestring(unquote(cookies['__ac'].value) + '=====')
-            except binascii.Error:
+                ac = decodestring(ac_cookie + '=====')
+            except (TypeError, binascii.Error):
                 return name
+
             # plone.session 3.x (Plone 4.x)
             if '!' in ac[40:]:
                 name, user_data = ac[40:].split('!', 1)

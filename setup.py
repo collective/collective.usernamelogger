@@ -37,6 +37,7 @@ setup(name = 'collective.usernamelogger',
       ],
       extras_require = { 'test': [
           'collective.testcaselayer',
+          'Products.PloneTestCase',
       ]},
       entry_points = '''
         [z3c.autoinclude.plugin]

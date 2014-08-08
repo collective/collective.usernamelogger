@@ -1,7 +1,7 @@
 from base64 import decodestring, binascii
 from time import time
 from urllib import unquote
-from Cookie import SimpleCookie
+from Cookie import CookieError, SimpleCookie
 from ZPublisher import HTTPRequest
 
 
@@ -23,7 +23,11 @@ def username(cookie, name=None):
     """ try to extract username from PAS cookie """
     if cookie is not None:
         cookies = SimpleCookie()
-        cookies.load(cookie)
+        try:
+            cookies.load(cookie)
+        except CookieError:
+            return name
+
         if '__ac' in cookies:
             # Deal with doubly quoted cookies
             ac_cookie = repeatedly_unquote(cookies['__ac'].value)

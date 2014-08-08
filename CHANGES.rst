@@ -4,6 +4,9 @@ Changelog
 1.3 - Unreleased
 ----------------
 
+* Don't crash if we get a CookieError.
+  [vincentfretin]
+
 * Properly deal with doubly quoted __ac cookies (e.g. from PAS.CookieAuthHelper).
   [lgraf]
 

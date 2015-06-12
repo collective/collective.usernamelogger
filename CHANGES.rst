@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.3 (unreleased)
+1.3 (2015-06-12)
 ----------------
 
 - Don't crash if we get a CookieError.

@@ -5,7 +5,9 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Separate log entry preparation and formatting from logging.
+  This makes it easier to extend the logging by patching those methods.
+  [jone]
 
 
 1.3 (2015-06-12)

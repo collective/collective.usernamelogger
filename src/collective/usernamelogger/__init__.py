@@ -4,6 +4,10 @@ from urllib import unquote
 from Cookie import CookieError, SimpleCookie
 from ZPublisher import HTTPRequest
 
+import os
+
+cookie_name = os.environ.get('USERNAMELOGGER_AC_COOKIE_NAME', '__ac')
+
 
 def repeatedly_unquote(cookie):
     """Keep unquoting the cookie value until it doesn't change any more.
@@ -28,9 +32,9 @@ def username(cookie, name=None):
         except CookieError:
             return name
 
-        if '__ac' in cookies:
+        if cookie_name in cookies:
             # Deal with doubly quoted cookies
-            ac_cookie = repeatedly_unquote(cookies['__ac'].value)
+            ac_cookie = repeatedly_unquote(cookies[cookie_name].value)
 
             try:
                 ac = decodestring(ac_cookie + '=====')

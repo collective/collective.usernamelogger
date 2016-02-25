@@ -5,7 +5,10 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Make session cookie name configurable via environment variable:
+  Using the env variable USERNAMELOGGER_AC_COOKIE_NAME, the session cookie
+  name can be set to a different value than the default of '__ac'.
+  [lgraf]
 
 
 1.3 (2015-06-12)

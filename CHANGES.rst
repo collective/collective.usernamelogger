@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4 (unreleased)
+1.4 (2016-02-25)
 ----------------
 
 - Make session cookie name configurable via environment variable:

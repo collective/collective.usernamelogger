@@ -59,10 +59,7 @@ def username(cookie, name=None):
     return name
 
 
-# the following is a copy of the `log` method from
-# `ZServer.medusa.http_server.http_request.py` (around line 272)
-# plus the extra call to the above function to extract the username
-def log (self, bytes):
+def prepare_log_entry(self, bytes):
     user_agent=self.get_header('user-agent')
     if not user_agent: user_agent=''
     referer=self.get_header('referer')
@@ -93,15 +90,33 @@ def log (self, bytes):
     # support for cookies and cookie authentication
     name = username(self.get_header('Cookie'), name)
 
-    self.channel.server.logger.log (
-        ip_addr,
-        '- %s [%s] "%s" %d %d "%s" "%s"\n' % (
-            name,
-            self.log_date_string (time()),
-            self.request,
-            self.reply_code,
-            bytes,
-            referer,
-            user_agent
-            )
-        )
+    return {'ip_addr': ip_addr,
+            'user': name,
+            'date': self.log_date_string (time()),
+            'request_line': self.request,
+            'response_code': self.reply_code,
+            'bytes': bytes,
+            'referer': referer,
+            'user_agent': user_agent}
+
+
+def format_log_entry(self, data):
+    return '- %(user)s [%(date)s] "%(request_line)s" %(response_code)d' \
+        ' %(bytes)d "%(referer)s" "%(user_agent)s"\n' % data
+
+
+# the following is a copy of the `log` method from
+# `ZServer.medusa.http_server.http_request.py` (around line 272)
+# plus the extra call to the above function to extract the username
+def log (self, bytes):
+    data = self.prepare_log_entry(bytes)
+    message = self.format_log_entry(data)
+    self.channel.server.logger.log(data['ip_addr'], message)
+
+
+def apply_patches(scope, original, replacement):
+    # This patches ".log":
+    setattr(scope, original, replacement)
+    # we also need our helper methods:
+    setattr(scope, 'prepare_log_entry', prepare_log_entry)
+    setattr(scope, 'format_log_entry', format_log_entry)

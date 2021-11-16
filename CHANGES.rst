@@ -5,7 +5,7 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-- Fix python3 'unquote' import error
+- Fix python3 'unquote', 'CookieError', 'SimpleCookie' import error
   [fngaha]
 
 

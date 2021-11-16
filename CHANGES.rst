@@ -5,7 +5,8 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix python3 'unquote' import error
+  [fngaha]
 
 
 1.4 (2016-02-25)

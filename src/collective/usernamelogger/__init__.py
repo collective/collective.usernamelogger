@@ -1,7 +1,7 @@
 from base64 import decodestring, binascii
 from time import time
-from urllib import unquote
-from Cookie import CookieError, SimpleCookie
+from urllib.parse import unquote
+from http.cookies import CookieError, SimpleCookie
 from ZPublisher import HTTPRequest
 
 import os
